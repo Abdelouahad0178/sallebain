@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurateur Salle de Bain</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="scene"></canvas>
+
+    <div id="controls" class="controls">
+        <div class="file-inputs">
+            <input type="file" id="textureInput" multiple accept="image/*" class="file-input">
+            <label for="textureInput" class="file-label hidden">Texture</label>
+
+            <input type="file" id="sinkModelInput" accept=".gltf,.glb,.obj,.fbx" data-type="sink" class="file-input">
+            <label for="sinkModelInput" class="file-label">Sanitaire</label>
+
+            <input type="file" id="mirrorModelInput" accept=".gltf,.glb,.obj,.fbx" data-type="mirror" class="file-input">
+            <label for="mirrorModelInput" class="file-label hidden">Miroir</label>
+        </div>
+        <div class="action-buttons">
+            <button id="changeWall1" class="btn hidden">Mur 1</button>
+            <button id="changeWall2" class="btn hidden">Mur 2</button>
+            <button id="changeFloor" class="btn hidden">Sol</button>
+            <button id="addSink" class="btn">+ Sanitaire</button>
+            <button id="addMirror" class="btn hidden">+ Miroir</button>
+            <button id="addBidet" class="btn hidden">+ Bidet</button>
+            <button id="removeObject" class="btn">Supprimer</button>
+            
+            <input type="range" id="lightIntensity" min="0" max="2" step="0.1" value="0.5" class="slider">
+            <button id="undoAction" class="btn">Annuler</button>
+            <button id="redoAction" class="btn">Rétablir</button>
+
+            <input type="file" id="tileTextureInput" accept="image/*" class="file-input">
+            <label for="tileTextureInput" class="file-label">Importer Carrelage</label>
+
+           
+            <button id="saveImageButton" class="btn">Sauvegarder l'image</button>
+            <button id="modeTranslate" class="btn">Déplacement</button>
+            <button id="modeRotate" class="btn">Rotation</button>
+        </div>
+
+        <!-- Contrôles de dimensions pour le sol et les murs -->
+        <div id="dimensionControls">
+            <label>
+                Largeur du Sol :
+                <input type="number" id="floorWidth" value="5" step="0.1">
+            </label>
+            <label>
+                Profondeur du Sol :
+                <input type="number" id="floorDepth" value="5" step="0.1">
+            </label>
+            <label>
+                Largeur Mur 1 :
+                <input type="number" id="wall1Width" value="5" step="0.1">
+            </label>
+            <label>
+                Largeur Mur 2 :
+                <input type="number" id="wall2Width" value="5" step="0.1">
+            </label>
+            <label>
+                Hauteur des Murs :
+                <input type="number" id="wallHeight" value="3" step="0.1">
+            </label>
+            <button id="applySurfaceDimensions">Appliquer Dimensions Sol et Murs</button>
+        </div>
+
+        <!-- Contrôles de dimensions pour les carrelages -->
+        <div style="margin-top: 10px;">
+            <label for="tileWidthInput">Largeur du carrelage (m) :</label>
+            <input type="number" id="tileWidthInput" value="0.6" step="0.01">
+            <label for="tileHeightInput">Hauteur du carrelage (m) :</label>
+            <input type="number" id="tileHeightInput" value="1.2" step="0.01">
+            <button id="applyTileDimensionsButton">Appliquer Dimensions Carrelage</button>
+            
+            <button id="clearScene" class="btn">Mise à Zéro</button>
+
+        </div>
+    </div>
+
+    <!-- Modale pour choisir le type de carrelage et ses dimensions -->
+    <div id="tileModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Choisissez le type de carrelage</h3>
+            <button id="singleTileButton" class="btn">Un seul carrelage</button>
+            <button id="doubleTileButton" class="btn">Deux carrelages en alternance</button>
+
+            <!-- Sélecteur d'orientation -->
+            <div class="orientation-select" style="margin-top: 10px;">
+                <label for="orientationSelect">Orientation:</label>
+                <select id="orientationSelect">
+                    <option value="horizontal">Horizontale</option>
+                    <option value="vertical">Verticale</option>
+                </select>
+            </div>
+
+            <button id="closeModalButton" class="btn">Fermer</button>
+        </div>
+    </div>
+
+    <div id="texturePalette" class="texture-palette">
+        <h3 style="color: white;">Textures</h3>
+        <input type="text" id="searchTile" placeholder="Recherche" style="margin-bottom: 10px; padding: 5px; width: 90%; border-radius: 4px; border: 1px solid #ccc;">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TransformControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
